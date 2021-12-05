@@ -1,26 +1,21 @@
 // app/javascript/Routes.js
 import React from 'react';
 import {
-    Switch,
-    Route,
     BrowserRouter as Router,
+    Route,
     Routes,
 } from "react-router-dom";
-import Home from './bundles/home/components/Home.js';
+import HelloWorld from './bundles/HelloWorld/components/HelloWorld';
+import App from './App';
 
-export default () => {
+export default (props) => {
     return (
         <Router>
+            <App />
             <Routes>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <Route path="/login">
-                    <h3>Login Component</h3>
-                </Route>
-                <Route path="/register">
-                    <h3>Registration Component</h3>
-                </Route>
+                <Route exact path="/" element={<HelloWorld name={props.name} />} />
+                <Route exact path="/login" element={<HelloWorld name={props.name} />} />
+                <Route exact path="/register" element={<HelloWorld name={props.name} />} />
             </Routes>
         </Router>
     );

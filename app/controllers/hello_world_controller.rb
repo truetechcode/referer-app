@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
-  layout "home"
+class HelloWorldController < ApplicationController
+  layout "hello_world"
 
   def index
     @hello_world_props = { name: "Stranger" }
