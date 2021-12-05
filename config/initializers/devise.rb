@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'd461ccd20f8ed201d5e52c7145413e45c198b035a7c0a428207e4a4a555e19b22f4075bf337a526d90145a064d2e4fd0e8b33e902d0bd1312144cb8474b2f2e0'
+  config.secret_key = '79d225bc1bc2b7c86940db4a1293256417033bd068dd036549edbeac2b143ce2ddf1e595d634690d4ae9bc283cb37e1254c7c580e61adbc9dae5ead477b17482'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -209,7 +209,16 @@ Devise.setup do |config|
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
   # config.maximum_attempts = 20
-
+  config.jwt do |jwt|
+    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+        jwt.dispatch_requests = [
+        ['POST', %r{^/api/login$}]
+      ]
+      jwt.revocation_requests = [
+        ['DELETE', %r{^/api/logout$}]
+      ]
+      jwt.expiration_time = 1.day.to_i
+  end
   # Time interval to unlock the account if :time is enabled as unlock_strategy.
   # config.unlock_in = 1.hour
 
