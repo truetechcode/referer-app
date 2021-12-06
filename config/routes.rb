@@ -4,19 +4,18 @@ Rails.application.routes.draw do
 
     # API namespace, for JSON requests at /api/sign_[in|out]
     namespace :api, defaults: { format: :json } do
-      resources :users, only: %w[show]
+      resources :users, only: %w[show create]
   
       devise_for :users,
         skip: %i[registrations invitations
                 passwords confirmations
                 unlocks],
         path: '',
-        path_names: { sign_in: 'api/login',
-                      sign_out: 'api/logout' ,
-                      registration: 'api/signup'
+        path_names: { sign_in: 'login',
+                      sign_out: 'logout' 
                     },
                     controllers: {
-                      sessions: 'sessions',
+                      sessions: 'api/sessions',
                       registrations: 'registrations'
                     }                                      
     end

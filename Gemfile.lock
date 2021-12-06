@@ -87,9 +87,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-jwt (0.7.0)
+    devise-jwt (0.9.0)
       devise (~> 4.0)
-      warden-jwt_auth (~> 0.4)
+      warden-jwt_auth (~> 0.6)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -257,7 +257,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
-  devise-jwt (~> 0.7.0)
+  devise-jwt
   dotenv-rails
   foreman
   jbuilder (~> 2.7)
