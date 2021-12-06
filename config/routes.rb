@@ -1,8 +1,23 @@
 Rails.application.routes.draw do
-  devise_for :users
-  get 'hello_world', to: 'hello_world#index'
+  get 'home', to: 'hello_world#index'
   root "hello_world#index"
-  get 'login', to: 'hello_world#index'
-  post 'register', to: 'hello_world#index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+    # API namespace, for JSON requests at /api/sign_[in|out]
+    namespace :api, defaults: { format: :json } do
+      resources :users, only: %w[show]
+  
+      devise_for :users,
+        skip: %i[registrations invitations
+                passwords confirmations
+                unlocks],
+        path: '',
+        path_names: { sign_in: 'api/login',
+                      sign_out: 'api/logout' ,
+                      registration: 'api/signup'
+                    },
+                    controllers: {
+                      sessions: 'sessions',
+                      registrations: 'registrations'
+                    }                                      
+    end
 end
