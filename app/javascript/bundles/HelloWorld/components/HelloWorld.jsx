@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import axios from 'axios';
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -14,7 +15,27 @@ export default class HelloWorld extends React.Component {
 
     // How to set initial state in ES6 class syntax
     // https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class
-    this.state = { name: this.props.name };
+    this.state = { user: null };
+  }
+
+  componentDidMount() {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios.get(`/api/user`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      }).
+        then(function (response) {
+          console.log(response.data);
+          (response) => this.setState({ user: response.data });
+        }).
+        catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
   updateName = (name) => {

@@ -7,11 +7,12 @@ class User < ApplicationRecord
   before_create :add_jti
 
 
+  belongs_to :referer, class_name: 'User'
 
   def add_jti
     self.jti ||= SecureRandom.uuid
   end
-  
+
   def generate_jwt
     JWT.encode({ id: id,
                 exp: 5.days.from_now.to_i },

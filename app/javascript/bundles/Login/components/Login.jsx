@@ -23,6 +23,7 @@ export default class Login extends React.Component {
     }
 
     componentDidMount() {
+        const saved = localStorage.getItem("name");
     }
 
     submit = (e) => {
