@@ -7,31 +7,21 @@ class Api::UsersController < ApplicationController
   end
 
   def create
-    referer = User.find_by(email: user_params['referer_email'])
+    referer = User.find_by(email: user_params["referer_email"])
     referer_id = nil
 
-    if(referer){
+    if(referer)
       referer_id = referer.id
-    }
+    end
 
-    @user = User.new(user_params)
+    @user = User.new(user_params.reject { |k| !User.attribute_method?(k) })
     @user.referer_id = referer_id if referer
     
-    if @user.save
+    if @user.save!
       render 'users/create.json' and return
     else
       respond_to do |format|
-        format.json { head 401 }
-      end
-    end
-  end
-
-  def update
-    if @user.update(user_params)
-      render 'users/update.json' and return
-    else
-      respond_to do |format|
-        format.json { head 401 }
+        format.json { head 403 }
       end
     end
   end
@@ -40,6 +30,7 @@ class Api::UsersController < ApplicationController
 
   # Use callbacks to share common methods between actions.
   def set_user
+    p @current_user
     @user = User.find(@current_user.id)
   end
 

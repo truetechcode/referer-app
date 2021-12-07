@@ -1,6 +1,5 @@
 class Api::SessionsController < Devise::SessionsController
-  skip_before_action :verify_signed_out_user
-  before_action :prevent_session_store
+
   respond_to :json
 
   # POST /api/login
@@ -15,8 +14,9 @@ class Api::SessionsController < Devise::SessionsController
     resource = warden.authenticate(auth_options)
     if resource.blank?
       logger.info 'Error with your login or password.'
-      render status: 401,
-             json: { success: false, message: 'Error with your login or password' } and return
+      render json: { 
+        success: false, message: 'Error with your login or password' 
+        }, status: 403 and return
     end
 
     sign_in(resource_name, resource)
@@ -30,7 +30,7 @@ class Api::SessionsController < Devise::SessionsController
                     {
                       status: { code: 200, message: 'Logged in sucessfully.' },
                       auth_token: current_token,
-                      data: resource.serializable_hash(only: [:mobile_number])
+                      data: resource.serializable_hash(only: [:name, :email, :referer])
                     }, status: :ok
       end
     end
