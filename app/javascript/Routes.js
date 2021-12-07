@@ -5,8 +5,11 @@ import {
     Route,
     Routes,
 } from "react-router-dom";
-import HelloWorld from './bundles/HelloWorld/components/HelloWorld';
+
 import App from './App';
+import HelloWorld from './bundles/HelloWorld/components/HelloWorld';
+import Login from './bundles/Login/components/Login';
+import Register from './bundles/Register/components/Register';
 
 export default (props) => {
     return (
@@ -14,8 +17,8 @@ export default (props) => {
             <App />
             <Routes>
                 <Route exact path="/" element={<HelloWorld name={props.name} />} />
-                <Route exact path="/login" element={<HelloWorld name={props.name} />} />
-                <Route exact path="/register" element={<HelloWorld name={props.name} />} />
+                <Route exact path="/login" element={<Login name={props.name} />} />
+                <Route exact path="/register" element={<Register name={props.name} />} />
             </Routes>
         </Router>
     );

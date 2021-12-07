@@ -11,6 +11,7 @@ class User < ApplicationRecord
   def add_jti
     self.jti ||= SecureRandom.uuid
   end
+  
   def generate_jwt
     JWT.encode({ id: id,
                 exp: 5.days.from_now.to_i },
