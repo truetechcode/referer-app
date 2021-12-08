@@ -20,6 +20,7 @@ function ReferDialog(props) {
   const [email, setEmail] = React.useState("");
   const [sent, setSent] = React.useState(false);
   const [error, setError] = React.useState('');
+  const [message, setMessage] = React.useState('');
 
   const submit = (e) => {
     e.preventDefault()
@@ -29,15 +30,26 @@ function ReferDialog(props) {
       return;
     }
 
-    axios.get(`/api/users/refer?email=${email}`).
-      then(() => {
-        setSent(true);
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios.get(`/api/user/refer?email=${email}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${JSON.parse(token)}`
+        },
       }).
-      catch((error) => {
-        if (error.response) {
+        then((response) => {
+          setMessage(response.data.message);
           setSent(true);
-        }
-      });
+          setEmail('');
+        }).
+        catch((error) => {
+          if (error.response) {
+            setSent(true);
+          }
+        });
+    }
   }
 
   return (
@@ -51,6 +63,7 @@ function ReferDialog(props) {
       <DialogContent className={'refer-dialog-content'}>
         <Grid container>
           <Grid item xs={12}>
+            {message.length > 0 && <Alert severity="success">{message}!</Alert>}
             {error.length > 0 && <Alert severity="error">{error}!</Alert>}
             <TextField
               style={{ marginBottom: 20 }}

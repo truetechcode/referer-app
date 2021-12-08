@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate_api_user!, only: %i[show update destroy]
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy refer]
 
   def show
     render 'users/show.json'
@@ -26,11 +26,20 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def refer
+    url  = request.base_url + '/register'
+    invitee_email = params[:email]
+    RefererMailer.with(user: @user, to: invitee_email, url: url).new_referer_email.deliver_later
+
+    render json: { 
+      success: false, message: 'Invite Sent!' 
+      }, status: 200
+  end
+  
   private
 
   # Use callbacks to share common methods between actions.
   def set_user
-    p @current_user
     @user = User.find(@current_user.id)
   end
 

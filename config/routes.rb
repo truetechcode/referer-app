@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace :api, defaults: { format: :json } do
       resources :users, only: %w[show create]
       get 'user', to: 'users#show'
+      get 'user/refer', to: 'users#refer'
   
       devise_for :users,
         skip: %i[registrations invitations
