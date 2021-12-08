@@ -1,24 +1,56 @@
-# README
+# A Referer App  🚀
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 👋 Intro
 
-Things you may want to cover:
+The Referer App was built with a Ruby on Rails Backend and a React Front End. It is a very simple Referer/Invite system, where an already registered user can refer another user via email.
 
-* Ruby version
+### Dependecies
 
-* System dependencies
+- Ruby V2.7.3
+- Rails Gem v6.1.4
+- React on Rails Gem v11.3.0
+- Devise Gem
+- Google Map
+- React Router v6.0.2
+- Material UI
 
-* Configuration
+## 🚀 Getting Started
 
-* Database creation
+#### 1. Clone and Install
 
-* Database initialization
+```
+# Clone the repo:
+git clone https://github.com/truetechcode/kopa-locate-app.git
 
-* How to run the test suite
+# Move to the appropriate directory:
+cd kopa-locate-app
 
-* Services (job queues, cache servers, search engines, etc.)
+# Install dependencies:
+bundle
 
-* Deployment instructions
+yarn install
 
-* ...
+# Setup Database
+
+bin/rails db:setup
+bin/rails db:migrate
+
+# Change `dev.env` to `.env`
+# Add your mailing credentials to `.env`
+
+# Setup Webpacker by running:
+  bin/rails webpacker:install
+```
+
+#### 2.1 Run the _Referer_ App
+
+You can do it by running the following command in terminal:
+
+```
+foreman start -f Procfile.dev-server
+```
+
+The local server will start at:
+[http://localhost:3000](http://localhost:3000).
+
+Author: <a href="http://www.twitter.com/truetech_code">Terver Aosu</a>
