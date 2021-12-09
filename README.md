@@ -53,4 +53,33 @@ foreman start -f Procfile.dev-server
 The local server will start at:
 [http://localhost:3000](http://localhost:3000).
 
+#### 2.2 Api routes
+
+- Creat User Account
+```
+POST /api/users
+{
+      "user": {
+        "email": "test@example.com",
+        "password": "password"
+    }
+}
+```
+
+- Authenticate User
+```
+POST /api/login
+{
+      "api_user": {
+        "email": "test@example.com",
+        "password": "password"
+    }
+}
+```
+
+- Get Authenticate User
+```
+GET /api/user
+```
+
 Author: <a href="http://www.twitter.com/truetech_code">Terver Aosu</a>
